@@ -1,5 +1,5 @@
 # Property_Nexus-PHP
-Property Nexus
+
 Property Nexus is a comprehensive web application designed to simplify the process of advertising, inquiring, and purchasing properties. Whether you're a property owner looking to list your property, a buyer searching for the perfect home, or an agent managing multiple listings, Property Nexus offers a user-friendly interface and robust features to meet your needs.
 
 Features
