@@ -10,4 +10,7 @@ Add Property: Property owners can add new listings with ease.
 Responsive Design: Optimized for both desktop and mobile devices.
 Multilingual Support: Support for multiple languages to cater to a diverse user base.
 
-![Screenshot 2024-08-03 165823](https://github.com/user-attachments/assets/37fb4cf6-1adf-4eb1-b07e-fe7473672567)
+
+
+https://github.com/user-attachments/assets/c063322e-0943-4fbd-afd8-f6b3e3954e16
+
