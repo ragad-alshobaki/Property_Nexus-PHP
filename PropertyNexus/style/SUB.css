@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 10%;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #666;
+}
+.bro h1{
+    display: flex;
+    justify-content:center;
+    align-items: start;
+    font-size: 50px;
+    
+    
+
+}
+.bro p{
+    display: flex;
+    justify-content:center;
+    align-items: start;
+    color: #8b8585;
+    font-size: 20px;
+
+}
+.card .price {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    /* position: absolute; */
+    bottom: 0;
+    width: 100%;
+}
+
+.card.basic .price {
+    background-color: #ffcc00;
+    color: #fff;
+}
+
+.card.standard .price {
+    background-color: #00cc99;
+    color: #fff;
+}
+
+.card.premium .price {
+    background-color: #3366cc;
+    color: #fff;
+}
+
+.card.featured .price {
+    background-color: #ff9900;
+    color: #fff;
+}
+
+.card.affiliate .price {
+    background-color: #66ccff;
+    color: #fff;
+}
+
+.card.training .price {
+    background-color: #ff6699;
+    color: #fff;
+}
+
+.card.event .price {
+    background-color: #9966ff;
+    color: #fff;
+}
+
+.card.basic i {
+    color: #ffcc00;
+}
+
+.card.standard i {
+    color: #00cc99;
+}
+
+.card.premium i {
+    color: #3366cc;
+}
+
+.card.featured i {
+    color: #ff9900;
+}
+
+.card.affiliate i {
+    color: #66ccff;
+}
+
+.card.training i {
+    color: #ff6699;
+}
+
+.card.event i {
+    color: #9966ff;
+}

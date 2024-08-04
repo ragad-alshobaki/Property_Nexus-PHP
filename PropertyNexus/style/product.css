@@ -1,0 +1,320 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+  form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+  input[type="text"],
+  input[type="number"],
+  select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  select {
+    width: 120px; 
+    max-width: 100%;
+  }
+
+
+  input[type="submit"] {
+    background-color: #526D82; 
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 14px;
+   text-align: center;
+    transition: background-color 0.3s ease;
+    
+   
+  }
+  input[type="submit"] .add-btn{
+    background-color: #2f9300; 
+  }
+
+
+  input[type="submit"]:hover {
+    background-color: #526D82; 
+  }
+/* 
+  / Style the "Add Property" button */ 
+  #addPropertyBtn {
+    background-color: #cbcbcb; 
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: end;
+    height: 40px;
+  }
+
+  #addPropertyBtn a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #addPropertyBtn:hover {
+    background-color: #6f6f6f;
+  }
+
+
+  #addPropertyBtn {
+    display: inline-block;
+  }
+
+
+
+ /* .container_m {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusts the column width and handles responsiveness */
+    /* gap: 20px; 
+    padding: 20px;
+  }  */
+
+/* 
+  .card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(182, 182, 182, 0.1);
+    padding: 10px;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+
+  }
+  .info{
+    margin: 20px;
+  }
+  .card h2 {
+    font-size: 1.25rem;
+  }
+
+  .card p {
+    margin: 0.5rem 0;
+
+  } */
+  .filter{
+    display: flex;
+    /* margin: 55px; */
+    margin-left: 90px;
+    margin-top: -30px;
+    gap:5px;
+    margin-bottom: 20px;
+  }
+  .see_moer_btn{
+    background-color:#526D82;
+    color: white;
+    height: 40px;
+    border: #6f6f6f;
+  }
+  .rows-bt{
+    display: flex;
+    flex-direction: row;
+  }
+  .see_more_btn{
+    background-color: #526D82;
+    padding: 10px;
+  }
+  .see_more_btn:hover{
+    background-color: #526D82;
+  } 
+  /* Container for each property card */
+/* Global styles for margin, padding, and box-sizing
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Card styling */
+/* .container_m {
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;  */ 
+
+/* .card_m {
+  position: relative;
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fff;
+  margin: 40px;
+  box-sizing: border-box;
+} */
+
+/* .image-container {
+  position: relative;
+  /* fFFF */
+  /* height: 200px; */
+/* } */ 
+
+/* .image-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+
+/* .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.47);
+  pointer-events: none;
+  z-index: 1;
+} */
+/* 
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.content h2,
+.content p {
+  margin: 0;
+  padding: 0;
+}
+
+.see_more_btn {
+  display: block;
+  margin-top: 10px;
+  width: 100px;
+  background: #007bff;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.see_more_btn:hover {
+  background: #0056b3;
+}
+
+.loc {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  color: white;
+} */
+/* .pearent{
+  margin: 20px 0px;
+} */
+.container_m {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  padding: 16px; /* Uncomment if needed */
+}
+
+.card_m {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Added to ensure overlay positioning */
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Adjust as needed */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.47);
+  z-index: 1;
+}
+
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+  /* background: rgba(0, 0, 0, 0.5); Optional: Add a background for better readability */
+}
+
+.content h2,
+.content p {
+  margin: 0;
+  padding: 0;
+}
+
+.see_more_btn {
+  display: block;
+  margin-top: 10px;
+  width: 100px;
+  background: #dcdcdc;
+
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid rgb(56, 56, 56);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #000000;
+}
+
+.see_more_btn:hover {
+  background: #ababab;
+}
+
+.loc {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  color: white;
+}
+.submit{
+  display: flex;
+  gap: 5px;
+}
