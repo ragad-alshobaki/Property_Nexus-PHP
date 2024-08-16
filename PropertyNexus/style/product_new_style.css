@@ -1,0 +1,228 @@
+/* Filter bar styling */
+.filter {
+    padding: 10px 30px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 80px; /* Ensure it starts below the navbar */
+}
+
+.filter form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Increased spacing between form elements */
+}
+
+/* Custom styles for input fields */
+.filter input[type="text"],
+.filter input[type="number"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter input[type="text"]::placeholder,
+.filter input[type="number"]::placeholder {
+    color: #aaa;
+}
+
+.filter input[type="text"]:focus,
+.filter input[type="number"]:focus {
+    border-color: #811bfd;
+    box-shadow: 0 0 4px rgba(129, 37, 255, 0.3);
+    outline: none;
+}
+
+/* Custom styles for select dropdowns */
+.filter select {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 30px; /* Added padding for better appearance */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    appearance: none; /* Remove default dropdown arrow */
+    position: relative; /* Position relative to place custom arrow */
+}
+
+/* Custom dropdown arrow */
+.filter select::after {
+    content: '\25BC'; /* Unicode character for dropdown arrow */
+    font-size: 16px;
+    color: #555;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevents the arrow from blocking clicks */
+}
+
+/* Custom styles for focus on select */
+.filter select:focus {
+    border-color: #811bfd;
+    box-shadow: 0 0 4px rgba(129, 37, 255, 0.3);
+    outline: none;
+}
+
+/* Style for submit button */
+.filter input[type="submit"] {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #811bfd;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.filter input[type="submit"]:hover {
+    background-color: #5413a3;
+}
+
+/* Container for the entire set of cards */
+.container_m {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
+    gap: 20px; /* Space between cards */
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Style for each card */
+.card_m {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.card_m:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Image container to hold the image */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
+/* Content area within the card */
+.content {
+    padding: 15px;
+}
+
+.loc {
+    margin-bottom: 10px;
+}
+
+.loc p {
+    margin: 0;
+}
+
+.city, .region {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.price {
+    font-weight: bold;
+    color: #e74c3c;
+    margin: 10px 0;
+}
+
+.see_more_btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #811bfd;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.see_more_btn:hover {
+    background-color: #5d15b5;
+}
+
+.no-properties {
+    text-align: center;
+    font-size: 1.2em;
+    color: #777;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px auto;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .container_m {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .container_m {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+    
+    .filter form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter input[type="text"],
+    .filter input[type="number"],
+    .filter select {
+        min-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .filter input[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card_m {
+        font-size: 0.9em; /* Smaller font size for very small screens */
+    }
+}
