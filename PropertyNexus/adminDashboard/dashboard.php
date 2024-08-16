@@ -1,9 +1,15 @@
 <?php
-// Check if the user is logged in
-// if (!isset($_SESSION['isadmin'])) {
-//   header('Location: login.php');
-//   exit();
-// }
+session_start();
+require_once("dashboard_nav.php");
+
+if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != 1) {
+    header('Location: ../index.php'); // Redirect to the index.php page
+    exit();
+}else{
+    header('dashboard.php');
+}
+
+
 require("header.php");
 require("navbar.php");
 require("sidebar.php");

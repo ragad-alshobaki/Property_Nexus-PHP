@@ -1,8 +1,10 @@
+
+
 <?php
 @define("HOST", "localhost");
 @define("USER", "root");
 @define("PW", "");
-@define("DB", "PHP_project");
+@define("DB", "propertynexus");
 
 $db_conn = new mysqli(HOST, USER, PW, DB);
 
@@ -64,29 +66,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-    <link rel="stylesheet" href="../style\singup.css">
+    <link rel="stylesheet" href="style/singup.css">
 </head>
 <body>
+
     <div class="container">
-        <div class="login-section">
-            <h2>Login to <span>Property Nexus</span></h2>
-            <h3>Sell - Buy - Rent Today !</h3>
+        
+        <div class="login-section">    
+            
+           
             <form method="post" action="login.php">
                 <label for="u_email">Email:</label>
-                <input type="email" name="u_email" required><br>
+                <input type="email" name="u_email" required placeholder="Email"><br>
+                
 
                 <label for="u_pw">Password:</label>
-                <input type="password" name="u_pw" required><br>
+                <input type="password" name="u_pw" required placeholder="password"><br>
 
-                <div class="remember-me">
-                    <input type="checkbox" name="remember" id="remember">
-                    <label for="remember">Remember me</label>
-                </div>
-                <input type="submit" name="login" value="Login">
+               
+                <input type="submit" name="login" value="Login" >
             </form>
             <a href="#" class="forgot-password">Forgot Password?</a>
         </div>
-        <div class="image-section"></div>
-    </div>
+  </div>
 </body>
 </html>

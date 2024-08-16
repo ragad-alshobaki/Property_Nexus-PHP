@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,12 +22,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
+    margin: 100px;
 
   }
 
-  .item {
+  /* .item {
 
     width: 300px;
     background-color: #fff;
@@ -71,12 +71,12 @@
   .crad-btn a {
     color: black;
     text-decoration: none;
-  }
+  } */
 
   .back {
     width: 50px;
     height: 45px;
-    margin-top: 25px;
+    margin-top: 5px;
     margin-left: 30px;
   }
 
@@ -130,21 +130,21 @@
   }
 
   .card-2 {
-
+    width: 350px;
     position: relative;
-    width: 300px;
-    height: 320px;
     background-color: white;
     border-radius: 10px;
-    padding: 20px;
-    margin: 12px;
+    padding: 10px;
     text-decoration: none;
     z-index: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border: 1px solid grey;
     font-family: Arial, Helvetica, sans-serif;
-
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: space-around;
   }
 
   .card-2:before {
@@ -154,8 +154,8 @@
     top: -16px;
     right: -16px;
     background-color: #526D82;
-    height: 32px;
-    width: 32px;
+    height: 52px;
+    width: 52px;
     border-radius: 32px;
     transform: scale(1);
     transform-origin: 50% 50%;
@@ -182,7 +182,7 @@
     color: rgb(0, 0, 0);
     border: 1px solid rgb(0, 0, 0);
     font-size: 16px;
-
+  width: 150px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -195,18 +195,17 @@
     text-decoration: none;
   }
 
-  .card-cont {
+  /* .card-cont {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  }
+  } */
 </style>
 
 <body>
   <button class="back"><a href="../index.php"> <i class="fa-solid fa-arrow-left"></i></a> </button>
   <div class="parent_items">
     <div class="card-2">
-      <div class="card-cont">
         <div>
           <p class="card-title">Buy a home</p>
           <p class="small-desc">
@@ -214,12 +213,12 @@
           </p>
         </div>
         <div>
-          <button class="see-more"><a href="../product.php">see more</a></button>
+          <button class="see-more"><a href="product.php">see more</a></button>
         </div>
       </div>
-    </div>
+    
     <div class="card-2">
-      <div class="card-cont">
+     
 
         <div>
           <p class="card-title">Rent a home</p>
@@ -227,13 +226,13 @@
             We’re creating a seamless online experience – from shopping on the largest rental network, to applying, to paying rent.</p>
         </div>
         <div>
-          <button class="see-more"><a href="../product.php">see more</a></button>
+          <button class="see-more"><a href="product.php">see more</a></button>
         </div>
   
-      </div>
+     
     </div>
-    <div class="card-2">
-      <div class="card-cont">
+    <!-- <div class="card-2">
+      
         <div>
           <p class="card-title"> Sell a home</p>
           <p class="small-desc">
@@ -244,12 +243,12 @@
         <div>
           <button class="see-more"><a href="../product.php">see more</a></button>
         </div>
-      </div>
+     
 
      
-    </div>
-  </div>
-  </div>
+    </div> -->
+  
+  
   </div>
 </body>
 

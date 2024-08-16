@@ -4,7 +4,7 @@ session_start(); // Start the session
 @define("HOST", "localhost");
 @define("USER", "root");
 @define("PW", "");
-@define("DB", "PHP_project");
+@define("DB", "PropertyNexus");
 
 $db_conn = new mysqli(HOST, USER, PW, DB);
 
@@ -26,12 +26,15 @@ if ($userID) {
     if ($select_r->num_rows > 0) {
         $rec = $select_r->fetch_assoc();
     } else {
-        die("User not found");
+        header("Location: ../index.php"); // Redirect to index.php if user not found
+        exit(); // Ensure that script execution stops after redirection
     }
     $select_stmt->close();
 } else {
-    die("No user ID in session");
+    header("Location: ../index.php"); // Redirect to index.php if no user ID in session
+    exit(); // Ensure that script execution stops after redirection
 }
+
 
 // To update data
 if (isset($_POST["updUser"]) && $userID !== null) {
@@ -65,27 +68,163 @@ $db_conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="../style/profile.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <style>
+        .profile img{
+            width: 80px;
+            height: 80px;
+        }
+        
+
+        .profile img{
+            width: 80px;
+            height: 80px;
+        }
+         /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    width: 290px;
+    background-color: #333;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 800px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin:  0;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav ul li {
+    margin:  0;
+}
+
+.nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.nav ul li a:hover {
+    background-color: #34495e;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 2em;
+    color: #2c3e50;
+}
+
+.form-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-actions {
+    /* text-align: right; */
+}
+
+.btn {
+    padding: 10px ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.btn-success {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #2ecc71;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+    </style>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
-                <h2>Property Nexus</h2>
+                <!-- <h2>Property Nexus</h2> -->
+                <img src="../images/new-logo.png" style="width: 190px;" alt="Logo">
             </div>
             <div class="profile">
-                <img src="" alt="Profile Picture" class="profile-pic">
-                <h2>Team One</h2>
+                <?php 
+                // echo " <img src='../{$rec['userImage']}' alt='No img' ";
+                 ?>
             </div>
             <nav class="nav">
                 <ul>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Property</a></li>
+                    <li><a href="../index.php">Home</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="profile_property.php">Property</a></li>
                 </ul>
             </nav>
         </aside>
         <main class="main-content">
             <header class="header">
-                <h2>Profile</h2>
+                <h2><b>Profile</b></h2>
                 <div class="profile-completion">
                 </div>
             </header>
@@ -117,7 +256,8 @@ $db_conn->close();
                         <input type="text" name="u_mob" placeholder="<?php echo htmlspecialchars($rec['userMobile']); ?>"><br>
                     </div>
                     <div class="form-actions">
-                        <input type="submit" name="updUser" value="Save">
+                        <!-- <input id="btn" type="submit" name="updUser" value="Save"> -->
+                        <button type="submit" class="btn btn-success" name="updUser">Save</button>
                     </div>
                 </form>
             </section>

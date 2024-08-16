@@ -1,17 +1,7 @@
 <?php
 
 session_start();
-@define("HOST", "localhost");
-@define("USER", "root");
-@define("PW", "");
-@define("DB", "PHP_project");
-
-$db_conn = new mysqli(HOST, USER, PW, DB);
-
-// Check connection
-if ($db_conn->connect_error) {
-    die("<b>Connection failed:</b> " . $db_conn->connect_error);
-}
+require_once("adminDashboard/connection.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fname = $_POST['uFname'];
@@ -33,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
     $db_conn->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -41,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-    <link rel="stylesheet" href="../style/singup.css">
+    <link rel="stylesheet" href="style/singupin.css">
 </head>
 <body>
     <div class="container">
         <div class="login-section">
-            <h2>SIGNUP <span>Property Nexus</span></h2>
-            <p>Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+            <h2>Login to <span>Colorlib</span></h2>
+            <!-- <p>Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
             <form method="post" action="signup.php">
                 <label for="uFname">First Name:</label>
                 <input type="text" name="uFname" required><br>

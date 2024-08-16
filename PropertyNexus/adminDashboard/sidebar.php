@@ -1,3 +1,32 @@
+<style>
+  .logout-dang {
+    color: red;
+  }
+
+  /* Default styles for the list item */
+  .nav-section {
+    padding: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Style when hovering over the list item */
+  .nav-section:hover {
+    background-color: gray;
+  }
+
+  /* Style when the list item is active (focused) */
+  .nav-section.active {
+    background-color: darkgray;
+    /* You can choose a different color if you prefer */
+  }
+
+  /* Ensure the link text color remains visible */
+  .nav-section a {
+    color: #fff;
+    /* Change to whatever color you prefer */
+    text-decoration: none;
+  }
+</style>
 <!-- Sidebar -->
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
@@ -25,10 +54,7 @@
       <ul class="nav nav-secondary">
         <!-- catagory dashboard -->
         <li class="nav-item active">
-          <a data-bs-toggle="" href="#dashboard" class="collapsed" aria-expanded="false">
-            <i class="fas fa-home"></i>
-            <a href="dashboard.php">Dashboard</a>
-            <span class="caret"></span>
+          <a href="dashboard.php">Dashboard</a>
           </a>
           <div class="collapse" id="dashboard">
             <ul class="nav nav-collapse">
@@ -37,53 +63,65 @@
           </div>
         </li>
         <!-- end of catagory dashboard -->
+        <li class="nav-section" id="homeButton">
+          <span class="sidebar-mini-icon">
+            <i class="fa fa-ellipsis-h"></i>
+          </span>
+          <h4 class="text-section">
+            <a href="../index.php">Home</a>
+          </h4>
+        </li>
+        <li class="nav-section" id="homeButton">
+          <span class="sidebar-mini-icon">
+            <i class="fa fa-ellipsis-h"></i>
+          </span>
+          <h4 class="text-section">
+          <a href="database.php">Users</a>
+          </h4>
+        </li>
+
         <li class="nav-section">
           <span class="sidebar-mini-icon">
             <i class="fa fa-ellipsis-h"></i>
           </span>
-          <h4 class="text-section"> 
-          <a href="../index.php">Home</a>
-          </h4>
+          <h4 class="text-section">
+            <a href="property_db.php">Properties</a>
 
+          </h4>
+          
         </li>
         <li class="nav-section">
           <span class="sidebar-mini-icon">
             <i class="fa fa-ellipsis-h"></i>
           </span>
           <h4 class="text-section">
-            <a href="logout.php">Logout</a>
+            <a href="logout.php" class="logout-dang">Logout</a>
           </h4>
         </li>
 
-        <li class="nav-item active">
-          <a data-bs-toggle="collapse" href="#database" class="collapsed" aria-expanded="false">
-            <i class="fas fa-home"></i>
-            <p>Database</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="database">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="database.php">
-                  <span class="sub-item">database</span>
-                </a>
-              </li>
-              <!-- <li>
-                <a href="charts.php">
-                  <span class="sub-item">Charts</span>
-                </a>
-              </li> -->
-              <li>
-                <a href="property_db.php">
-                  <span class="sub-item">properties</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
+
+
+
 
       </ul>
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all nav-section elements
+    const navItems = document.querySelectorAll('.nav-section');
+
+    // Add click event listeners to each nav item
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        // Remove 'active' class from all nav items
+        navItems.forEach(nav => nav.classList.remove('active'));
+
+        // Add 'active' class to the clicked nav item
+        this.classList.add('active');
+      });
+    });
+  });
+</script>
 <!-- End Sidebar -->

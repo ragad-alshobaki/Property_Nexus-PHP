@@ -33,39 +33,52 @@ if (isset($_POST['logout'])) {
 }
 ?>
 
-<header>
-  <nav>
-    <div class="links">
-      
-      <img  src="images/logo.png" alt="Property Nexus Logo"> 
-     
-    
-      <a href="#home">HOME</a>
-      <a href="#Service">SERVICE</a> 
-      <a href="about.php">ABOUT</a>
-      <a href="contact.php">CONTACT</a>
-      <a href="sub.php">PREMIUM</a>
-    </div>
 
-    <div class="home_btn2">
+  <nav>
+    <div class="logo">
+      
+      <a href="index.php"><img  src="images/new_logo.png" alt="Property Nexus Logo"> </a> 
+      </div>
+    <div class="links">
+      <a href="index.php">HOME</a>
+      <a href="#Service">SERVICE</a> 
+      <a href="sub.php">PREMIUM</a>
+      <a href="about.php">ABOUT</a>
+      <a href="Q.php">FAQs</a>
+      <a href="contact.php">CONTACT</a>
+      
+      <!-- <a id="darkModeToggle">Dark Mode</a> -->
+
+   
       <?php if (!isset($_SESSION['userID'])): ?>
         <!-- Show Sign In and Register if not logged in -->
-        <button class="nav_btns"><a class="link" href="include\login.php">Sign In</a></button>
-        <button class="nav_btns"><a class="link" href=".\include\signup.php">Register</a></button>
+      <a  href="login.php" class="btns"> <button>Sign In</button></a>
+      <a href="signup.php"class="btns"> <button>Register</button></a>
       <?php else: ?>
         <!-- Show Hello username and Sign Out if logged in -->
         <?php
         $userID = $_SESSION['userID'];
         list($userFname, $isAdmin) = getUserInfo($userID, $db_conn);
-        ?>
-        <button class="nav_btns" data-id='{$userID}'><a class="link" href=".\include\profile.php">Hello <?php echo htmlspecialchars($userFname); ?></a></button>
+        ?><div class="after_logn">
+        <?php if (!$isAdmin): ?>
+
+        <a  href=".\include\profile.php"><button  data-id='{$userID}'><i class="fa-solid fa-user"></i></button></a>
+        <?php endif; ?>
         <?php if ($isAdmin): ?>
-          <button class="nav_btns"><a class="link" href="adminDashboard/Dashboard.php">Admin Dashboard</a></button>
+         <a  href="adminDashboard/Dashboard.php"><button> Dashboard</button></a>
         <?php endif; ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" style="display:inline;">
-          <button class="nav_btns" name="logout" type="submit">Sign Out</button>
+      
+    <a href=""> <button  name="logout" type="submit" class="logout"><i class="fa-solid fa-right-from-bracket"></i></button></a> 
+        </div>
         </form>
       <?php endif; ?>
     </div> 
   </nav>
-</header>
+  <script>
+
+document.getElementById("darkModeToggle").addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+});
+</script>
+  </script>

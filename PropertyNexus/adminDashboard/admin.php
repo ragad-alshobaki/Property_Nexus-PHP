@@ -7,16 +7,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
     <style>
+        .container {
+            padding: 10px;
+            width: 1250px;
+        }
+        .empty {
+            height: 50px;
+        }
         .modal-backdrop.show {
             display: none;
             opacity: var(--bs-backdrop-opacity);
+        }
+        .subContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        h2 {
+            font-size: 3.5rem;
+        }
+        button {
+            height: 50px;
+            margin-top: 25px;
         }
     </style>
 </head>
 <body>
 
 <?php
+
 include("connection.php");
 
 // Error reporting
@@ -35,12 +57,12 @@ if (isset($_POST['addusr'])) {
     $isAdmin = (int)$_POST['isAdmin'];
 
     if (empty($fname) || empty($lname) || empty($pw) || empty($email) || empty($mobile)) {
-        header('Location: admin.php?message=All fields are required. Please fill all fields.');
+        header('Location: database.php');
         exit();
     } else {
         $insert_Q = "INSERT INTO users (userFname, userLname, userAdress, userPW, userMobile, userEmail, isAdmin) VALUES ('$fname', '$lname', '$adress', '$pw', '$mobile', '$email', '$isAdmin')";
         if (mysqli_query($db_conn, $insert_Q)) {
-            header('Location: admin.php?insrt_msg=User data has been added successfully!');
+            header('Location: database.php');
         } else {
             die("Query Failed: " . mysqli_error($db_conn));
         }
@@ -52,7 +74,9 @@ if (isset($_POST['addusr'])) {
 <!-- Bootstrap table -->
 <div class="container">
     <div class="subContainer">
+        <div class="empty"></div>
         <h2>Users</h2>
+
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUsrModal">Add User</button>
     </div>
     
@@ -72,11 +96,12 @@ if (isset($_POST['addusr'])) {
             <?php 
                 $select_Q = "SELECT * FROM users";
                 $select_r = mysqli_query($db_conn, $select_Q);
+                $counter = 1; 
                 while ($rec = mysqli_fetch_assoc($select_r)) {
                     $userID = $rec['userID'];
                     echo "
                         <tr>
-                            <td>{$rec['userID']}</td>
+                            <td>{$counter}</td>
                             <td>{$rec['userFname']}</td>
                             <td>{$rec['userLname']}</td>
                             <td>{$rec['userMobile']}</td>
@@ -84,17 +109,19 @@ if (isset($_POST['addusr'])) {
                             <td>" . ($rec['isAdmin'] ? 'Admin' : 'User') . "</td>
                             <td>
                                 <button class='btn btn-warning btn-sm edit-btn' data-id='{$userID}' data-bs-toggle='modal' data-bs-target='#editUserModal'>
-                                    <i class='fa-solid fa-user-pen'></i>
+                                    <i class='fa-solid fa-pen fa-lg'></i>
                                 </button>
                                 <button class='btn btn-danger btn-sm delete-btn' data-id='{$userID}'>
-                                    <i class='fa-solid fa-user-minus'></i>
+                                    <i class='fa-solid fa-trash fa-lg'></i>
                                 </button>
                                 <button class='btn btn-info btn-sm toggle-admin-btn' data-id='{$userID}' data-isadmin='{$rec['isAdmin']}'>
-                                    <i class='fa-solid fa-user-tie'></i>
+                                    <i class='fa-solid fa-user-shield fa-lg'></i>
                                 </button>
                             </td>
                         </tr>";
+                        $counter++;
                 }
+
             ?>
         </tbody>
     </table>
@@ -163,27 +190,27 @@ if (isset($_POST['addusr'])) {
                         <input type="hidden" id="editUserID" name="userID">
                         <div class="form-group">
                             <label for="editUserFname">First Name</label>
-                            <input type="text" id="editUserFname" name="uFname" class="form-control" required>
+                            <input type="text" id="editUserFname" name="userFname" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="editUserLname">Last Name</label>
-                            <input type="text" id="editUserLname" name="uLname" class="form-control" required>
+                            <input type="text" id="editUserLname" name="userLname" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="editUserPW">Password</label>
-                            <input type="password" id="editUserPW" name="u_pw" class="form-control">
+                            <input type="password" id="editUserPW" name="userPW" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="editUserEmail">Email</label>
-                            <input type="email" id="editUserEmail" name="u_email" class="form-control" required>
+                            <input type="email" id="editUserEmail" name="userEmail" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="editUserAdress">Address</label>
-                            <input type="text" id="editUserAdress" name="u_adress" class="form-control" required>
+                            <input type="text" id="editUserAdress" name="userAdress" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="editUserMobile">Mobile Number</label>
-                            <input type="text" id="editUserMobile" name="u_mob" class="form-control" required>
+                            <input type="text" id="editUserMobile" name="userMobile" class="form-control" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -198,6 +225,7 @@ if (isset($_POST['addusr'])) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
 $(document).ready(function() {
     // Populate Edit Modal with User Data
@@ -214,6 +242,7 @@ $(document).ready(function() {
                 $('#editUserFname').val(data.userFname);
                 $('#editUserLname').val(data.userLname);
                 $('#editUserEmail').val(data.userEmail);
+                $('#editUserAdress').val(data.userAdress);
                 $('#editUserMobile').val(data.userMobile);
                 $('#editUserPW').val(data.userPW); // Optional: If you want to include the password in the modal
             }
@@ -229,27 +258,46 @@ $(document).ready(function() {
             method: 'POST',
             data: $(this).serialize(),
             success: function(response) {
-                alert(response);
-                location.reload();
+                swal("Success", response, "success").then(function() {
+                    location.reload();
+                });
+            },
+            error: function(response) {
+                swal("Error", response, "error");
             }
         });
     });
 
     // Handle Delete Button Click
     $('.delete-btn').on('click', function() {
-        if (confirm('Are you sure you want to delete this user?')) {
-            var userID = $(this).data('id');
-            
-            $.ajax({
-                url: 'delete_user.php',
-                method: 'POST',
-                data: { userID: userID },
-                success: function(response) {
-                    alert(response);
-                    location.reload();
-                }
-            });
-        }
+        var userID = $(this).data('id');
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this user!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: 'delete_user.php',
+                    method: 'POST',
+                    data: { userID: userID },
+                    success: function(response) {
+                        swal("Deleted!", response, "success").then(function() {
+                            location.reload();
+                        });
+                    },
+                    error: function(response) {
+                        swal("Error", response, "error");
+                    }
+                });
+            } else {
+                swal("Your user data is safe!");
+            }
+        });
     });
 
     // Handle Toggle Admin Button Click
@@ -262,12 +310,66 @@ $(document).ready(function() {
             method: 'POST',
             data: { userID: userID, isAdmin: isAdmin },
             success: function(response) {
-                alert(response);
-                location.reload();
+                swal("Success", response, "success").then(function() {
+                    location.reload();
+                });
+            },
+            error: function(response) {
+                swal("Error", response, "error");
             }
         });
     });
 });
 </script>
+<script>
+$(document).ready(function() {
+    // Assume the logged-in user's ID is stored in a session and passed to the JavaScript.
+    var loggedInUserID = <?php echo $_SESSION['userID']; ?>;
+
+    // Handle Delete Button Click
+    $('.delete-btn').on('click', function() {
+        var userID = $(this).data('id');
+
+        // Check if the user ID being deleted is the logged-in user's ID
+        if (userID == loggedInUserID) {
+            swal({
+                title: "Warning!",
+                text: "You cannot delete your own account!",
+                icon: "warning",
+                dangerMode: true,
+            });
+            return;
+        }
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this user!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: 'delete_user.php',
+                    method: 'POST',
+                    data: { userID: userID },
+                    success: function(response) {
+                        swal("Deleted!", response, "success").then(function() {
+                            location.reload();
+                        });
+                    },
+                    error: function(response) {
+                        swal("Error", response, "error");
+                    }
+                });
+            } else {
+                swal("Your user data is safe!");
+            }
+        });
+    });
+});
+</script>
+
 </body>
 </html>

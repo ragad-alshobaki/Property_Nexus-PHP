@@ -21,7 +21,7 @@
 
 
   <link rel="stylesheet" href="style/login.css">
-  <link rel="stylesheet" href="style/product_page.css">
+  
   <!-- <link rel="stylesheet" href="style/cards.css"> -->
   <link rel="stylesheet" href="style/page2.css">
   <link rel="stylesheet" href="style/image-slider.css">

@@ -1,78 +1,64 @@
-body {
+/* body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 10%;
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    max-width: 1200px;
-    justify-content: center;
-}
+    justify-items: center;
+    
+    margin-bottom: 40px;
+    /* Center items horizontally in the grid */
+/* }
 
 .card {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 300px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: transform 0.3s;
     position: relative;
-}
+    width:300px; /* Each card occupies full width of its grid cell */
+/* } */ 
 
-.card:hover {
+/* .card:hover {
     transform: translateY(-10px);
 }
 
 .card i {
-    font-size: 40px;
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
 .card h3 {
+    font-size: 20px;
     color: #333;
     margin-bottom: 10px;
 }
 
 .card p {
+    font-size: 16px;
     color: #666;
 }
-.bro h1{
-    display: flex;
-    justify-content:center;
-    align-items: start;
-    font-size: 50px;
-    
-    
 
-}
-.bro p{
-    display: flex;
-    justify-content:center;
-    align-items: start;
-    color: #8b8585;
-    font-size: 20px;
-
-}
 .card .price {
     background-color: rgba(0, 0, 0, 0.1);
     padding: 5px;
     border-radius: 0 0 10px 10px;
     font-size: 18px;
     font-weight: bold;
-    /* position: absolute; */
     bottom: 0;
     width: 100%;
 }
 
-.card.basic .price {
+/* Price colors based on category */
+/* .card.basic .price {
     background-color: #ffcc00;
     color: #fff;
 }
@@ -105,9 +91,10 @@ body {
 .card.event .price {
     background-color: #9966ff;
     color: #fff;
-}
+} */ 
 
-.card.basic i {
+/* Icon colors based on category */
+/* .card.basic i {
     color: #ffcc00;
 }
 
@@ -133,4 +120,4 @@ body {
 
 .card.event i {
     color: #9966ff;
-}
+} */

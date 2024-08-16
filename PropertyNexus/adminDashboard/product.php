@@ -1,246 +1,363 @@
 <?php
-// Database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "php_project";
+    // Database connection details
+    require_once("dashboard_nav.php");
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "PropertyNexus";
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Delete property if delete request is made
-if (isset($_GET['delete_id'])) {
-    $delete_id = intval($_GET['delete_id']);
-
-    // Prepare the SQL statement
-    $stmt = $conn->prepare("DELETE FROM properties WHERE p_ID = ?");
-    $stmt->bind_param("i", $delete_id);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "Property deleted successfully.<br>";
-    } else {
-        echo "Error deleting property: " . $stmt->error . "<br>";
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
-    // Close the statement
-    $stmt->close();
-}
+    // Handle new property addition
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['new_property'])) {
+        $title = $_POST['title'];
+        $price = $_POST['price'];
+        $description = $_POST['description'];
+        $city = $_POST['city'];
+        $region = $_POST['region'];
+        $floor = $_POST['floor'];
+        $image_url = $_POST['image_url'];
+        $type = $_POST['type'];
+        $user_id = $_POST['user_id']; // Assuming you're assigning a user to the property
 
-// Handle edit form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_id'])) {
-    $edit_id = intval($_POST['edit_id']);
-    $title = $_POST['title'];
-    $price = $_POST['price'];
-    $description = $_POST['description'];
-    $city = $_POST['city'];
-    $region = $_POST['region'];
-    $floor = $_POST['floor'];
-    $image_url = $_POST['image_url'];
-    $type = $_POST['type'];
+        // Prepare the insert statement
+        $stmt = $conn->prepare("INSERT INTO properties (p_title, p_price, p_description, p_city, p_region, p_floor, p_image_url, p_type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sisssisii", $title, $price, $description, $city, $region, $floor, $image_url, $type, $user_id);
 
-    // Prepare the update statement
-    $stmt = $conn->prepare("UPDATE properties SET p_title = ?, p_price = ?, p_description = ?, p_city = ?, p_region = ?, p_floor = ?, p_image_url = ?, p_type = ? WHERE p_ID = ?");
-    $stmt->bind_param("sisssisii", $title, $price, $description, $city, $region, $floor, $image_url, $type, $edit_id);
+        // Execute the statement
+        if ($stmt->execute()) {
+            echo "<script>Swal.fire('Added!', 'Property added successfully.', 'success');</script>";
+        } else {
+            echo "<script>Swal.fire('Error!', 'Error adding property: " . $stmt->error . "', 'error');</script>";
+        }
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "Property updated successfully.<br>";
-    } else {
-        echo "Error updating property: " . $stmt->error . "<br>";
+        // Close the statement
+        $stmt->close();
     }
 
-    // Close the statement
-    $stmt->close();
+    // Delete property if delete request is made
+    if (isset($_GET['delete_id'])) {
+        $delete_id = intval($_GET['delete_id']);
+
+        // Prepare the SQL statement
+        $stmt = $conn->prepare("DELETE FROM properties WHERE p_ID = ?");
+        $stmt->bind_param("i", $delete_id);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            echo "<script>Swal.fire('Deleted!', 'Property deleted successfully.', 'success');</script>";
+        } else {
+            echo "<script>Swal.fire('Error!', 'Error deleting property: " . $stmt->error . "', 'error');</script>";
+        }
+
+        // Close the statement
+        $stmt->close();
+    }
+
+    // Handle edit form submission
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_id'])) {
+        $edit_id = intval($_POST['edit_id']);
+        $title = $_POST['title'];
+        $price = $_POST['price'];
+        $description = $_POST['description'];
+        $city = $_POST['city'];
+        $region = $_POST['region'];
+        $floor = $_POST['floor'];
+        $image_url = $_POST['image_url'];
+        $type = $_POST['type'];
+
+        // Prepare the update statement
+        $stmt = $conn->prepare("UPDATE properties SET p_title = ?, p_price = ?, p_description = ?, p_city = ?, p_region = ?, p_floor = ?, p_image_url = ?, p_type = ? WHERE p_ID = ?");
+        $stmt->bind_param("sisssisii", $title, $price, $description, $city, $region, $floor, $image_url, $type, $edit_id);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            echo "<script>Swal.fire('Updated!', 'Property updated successfully.', 'success');</script>";
+        } else {
+            echo "<script>Swal.fire('Error!', 'Error updating property: " . $stmt->error . "', 'error');</script>";
+        }
+
+        // Close the statement
+        $stmt->close();
+    }
+    ?>
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Property Management</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f2f2f2;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .table-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 28px;
+                color: #333;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                padding: 12px;
+                border-bottom: 1px solid #ddd;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+
+            .actions a {
+                color: #007bff;
+                text-decoration: none;
+                margin-right: 10px;
+            }
+
+            .actions a:hover {
+                text-decoration: underline;
+            }
+
+            .btn-add {
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+
+            .btn-add:hover {
+                background-color: #45a049;
+            }
+
+            /* Modal Styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 500px;
+                border-radius: 10px;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .form-group input[type="text"],
+            .form-group textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            .form-group textarea {
+                resize: vertical;
+            }
+
+            button[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="table-container">
+        <h1>Property Management</h1>
+        <button class="btn-add" id="addPropertyBtn">Add Property</button>
+        
+        <!-- Property List Table -->
+        <?php
+        // Fetch properties from the database
+        $sql = "SELECT * FROM properties";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            echo "<table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>City</th>
+                            <th>Region</th>
+                            <th>Floor</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+            // Output data of each row
+while($row = $result->fetch_assoc()) {
+    echo "<tr>
+            <td><img src='" . $row["p_image_url"] . "' alt='Property Image' style='width: 100px; height: auto;'></td>
+            <td>" . $row["p_title"] . "</td>
+            <td>" . $row["p_city"] . "</td>
+            <td>" . $row["p_region"] . "</td>
+            <td>" . $row["p_floor"] . "</td>
+            <td>" . $row["p_description"] . "</td>
+            <td>$" . $row["p_price"] . "</td>
+            <td class='actions'>
+                <a href='#' class='edit-btn' data-id='" . $row["p_ID"] . "'><i class='fas fa-edit'></i></a>
+                <a href='?delete_id=" . $row["p_ID"] . "' onclick=\"return confirm('Are you sure you want to delete this property?')\"><i class='fas fa-trash-alt'></i></a>
+            </td>
+        </tr>";
 }
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Property Management</title>
-    <style>
-        /* Card styles */
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            width: 300px;
-            margin: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card img {
-            width: 100%;
-            height: auto;
-        }
-        .card-content {
-            padding: 16px;
-        }
-        .card-content h2 {
-            font-size: 1.5em;
-            margin: 0 0 10px 0;
-        }
-        .card-content p {
-            margin: 0 0 10px 0;
-            color: #555;
-        }
-        .card-content .price {
-            font-size: 1.2em;
-            color: #e74c3c;
-            margin: 0 0 10px 0;
-        }
-        .card-actions {
-            display: flex;
-            justify-content: space-between;
-            padding: 16px;
-            background-color: #f9f9f9;
-        }
-        .card-actions a {
-            text-decoration: none;
-            color: #3498db;
-            padding: 8px 16px;
-            border: 1px solid #3498db;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .card-actions a:hover {
-            background-color: #3498db;
-            color: #fff;
+            echo "</tbody></table>";
+        } else {
+            echo "<p>No properties found.</p>";
         }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 8px;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-  
+        $conn->close();
+        ?>
+    </div>
 
-    </style>
-</head>
-<body>
-
-<?php
-// Fetch properties from the database
-$sql = "SELECT * FROM properties";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    echo "<div style='display: flex; flex-wrap: wrap;'>";
-    // Output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<div class='card'>
-                <img src='" . $row["p_image_url"] . "' alt='Property Image'>
-                <div class='card-content'>
-                    <h2>" . $row["p_title"] . "</h2>
-                    <p>" . $row["p_city"] . "</p>
-                    <p>" . $row["p_region"] . "</p>
-                    <p>" . $row["p_floor"] . "</p>
-                    <p>" . $row["p_description"] . "</p>
-                    <p class='price'>$" . $row["p_price"] . "</p>
+    <!-- Add Property Modal -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Property</h2>
+            <form method="post">
+                <input type="hidden" name="new_property" value="1">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" placeholder="Enter title" required>
                 </div>
-                <div class='card-actions'>
-                    <a href='#' class='edit-btn' data-id='" . $row["p_ID"] . "' data-title='" . $row["p_title"] . "' data-price='" . $row["p_price"] . "' data-description='" . $row["p_description"] . "' data-city='" . $row["p_city"] . "' data-region='" . $row["p_region"] . "' data-floor='" . $row["p_floor"] . "' data-image-url='" . $row["p_image_url"] . "' data-type='" . $row["p_type"] . "'>Edit</a>
-                    <a href='?delete_id=" . $row["p_ID"] . "' onclick=\"return confirm('Are you sure you want to delete this property?');\">Delete</a>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="text" name="price" id="price" placeholder="Enter price" required>
                 </div>
-              </div>";
-    }
-    echo "</div>";
-} else {
-    echo "0 results";
-}
-?>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea name="description" id="description" placeholder="Enter description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" name="city" id="city" placeholder="Enter city" required>
+                </div>
+                <div class="form-group">
+                    <label for="region">Region:</label>
+                    <input type="text" name="region" id="region" placeholder="Enter region" required>
+                </div>
+                <div class="form-group">
+                    <label for="floor">Floor:</label>
+                    <input type="text" name="floor" id="floor" placeholder="Enter floor" required>
+                </div>
+                <div class="form-group">
+                    <label for="image_url">Image URL:</label>
+                    <input type="text" name="image_url" id="image_url" placeholder="Enter image URL" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <input type="text" name="type" id="type" placeholder="Enter type" required>
+                </div>
+                <div class="form-group">
+                    <label for="user_id">User ID:</label>
+                    <input type="text" name="user_id" id="user_id" placeholder="Enter user ID" required>
+                </div>
+                <button type="submit">Add Property</button>
+            </form>
+        </div>
+    </div>
 
-<!-- The Modal -->
-<div id="editModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Edit Property</h2>
-    <form method="post" action="">
-        <input type="hidden" name="edit_id" id="edit_id">
-        Title: <input type="text" name="title" id="title"><br>
-        Price: <input type="text" name="price" id="price"><br>
-        Description: <input type="text" name="description" id="description"><br>
-        City: <input type="text" name="city" id="city"><br>
-        Region: <input type="text" name="region" id="region"><br>
-        Floor: <input type="text" name="floor" id="floor"><br>
-        Image URL: <input type="text" name="image_url" id="image_url"><br>
-        Type: <input type="text" name="type" id="type"><br>
-        <input type="submit" value="Update Property">
-    </form>
-  </div>
-</div>
+    <script>
+    document.getElementById("addPropertyBtn").onclick = function() {
+        document.getElementById("addModal").style.display = "block";
+    };
 
-<script>
-// Get the modal
-var modal = document.getElementById("editModal");
+    document.querySelector(".close").onclick = function() {
+        document.getElementById("addModal").style.display = "none";
+    };
 
-// Get the button that opens the modal
-var btns = document.getElementsByClassName("edit-btn");
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("addModal")) {
+            document.getElementById("addModal").style.display = "none";
+        }
+    };
+    </script>
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-for (let btn of btns) {
-    btn.onclick = function() {
-        document.getElementById('edit_id').value = this.getAttribute('data-id');
-        document.getElementById('title').value = this.getAttribute('data-title');
-        document.getElementById('price').value = this.getAttribute('data-price');
-        document.getElementById('description').value = this.getAttribute('data-description');
-        document.getElementById('city').value = this.getAttribute('data-city');
-        document.getElementById('region').value = this.getAttribute('data-region');
-        document.getElementById('floor').value = this.getAttribute('data-floor');
-        document.getElementById('image_url').value = this.getAttribute('data-image-url');
-        document.getElementById('type').value = this.getAttribute('data-type');
-        modal.style.display = "block";
-    }
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
-</body>
-</html>
+    </body>
+    </html>

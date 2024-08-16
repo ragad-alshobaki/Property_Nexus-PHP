@@ -2,7 +2,7 @@
 @define("HOST", "localhost");
 @define("USER", "root");
 @define("PW", "");
-@define("DB", "PHP_project");
+@define("DB", "propertynexus");
 
 $db_conn = new mysqli(HOST, USER, PW, DB);
 

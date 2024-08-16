@@ -14,5 +14,5 @@
 
 <!-- Top End -->
 
-<?php include './include/bottom.php'; ?>
+
 <!-- Footer End -->

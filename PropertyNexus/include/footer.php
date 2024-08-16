@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style\footer.css">
+    <style>
+      .footer{
+       background-color: #333;
+      }
+
+    </style>
 </head>
+
 <body>
     <!--FONT AWESOME-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet"> 
 </head>
 <body>
-<footer>
+<footer >
 <div class="footer">
 <!-- <div class="row-a">
 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -26,11 +33,11 @@
 
 <div class="row">
 <ul>
-<li><a href="#">Contact us</a></li>
-<li><a href="#">Our Services</a></li>
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms & Conditions</a></li>
-<li><a href="#">Career</a></li>
+<li><a href="#home">HOME</a></li>
+<li><a href="contact.php">CONTACT</a></li>
+<li><a href="Q.php">FAQs</a></li>
+<li><a href="about.php">ABOUT</a></li>
+<li><a href="contact.php">CONTACT</a></li>
 </ul>
 </div>
 

@@ -6,7 +6,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "php_project";
+$dbname = "propertynexus";
 
 // Connect to the database
 $db_conn = new mysqli($servername, $username, $password, $dbname);
@@ -48,7 +48,7 @@ $db_conn->close();
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            /* background-color: #f9f9f9; */
             line-height: 1.6;
         }
 
@@ -59,6 +59,9 @@ $db_conn->close();
             z-index: 999;
             padding: 1rem;
             border-bottom: 1px solid #ddd;
+            
+
+            
         }
 
         h1 {
@@ -66,11 +69,13 @@ $db_conn->close();
             margin: 0;
             color: #007BFF;
             text-align: center;
+            margin: 10rem;
         }
 
         main {
-           
-            margin: 2rem auto;
+            margin: 10rem;
+
+            margin: 6rem auto;
             max-width: 1200px;
            background-color: #fff;
              border-radius: 12px; 
@@ -111,9 +116,12 @@ $db_conn->close();
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            border-radius: 8px;
+            /* border-radius: 8px; */
             overflow: hidden;
             padding: 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            
            
         }
 
@@ -123,8 +131,8 @@ $db_conn->close();
         }
 
         .measurement-details th {
-            background-color: #526D82;
-            color: #fff;
+            /* background-color: #5d11ba; */
+            color: #333;
             font-weight: 600;
         }
 
@@ -135,7 +143,7 @@ $db_conn->close();
         .icon {
             border-radius: 8px;
             border: none;
-            background-color: #526D82;
+            background-color: #5d11ba;
             color: #fff;
             font-size: 16px;
             width: 50px;
@@ -144,7 +152,7 @@ $db_conn->close();
             margin-bottom: 1rem;
         }
         .icon a :hover{
-            background-color: #526D82;
+            background-color: #5d11ba;
         }
     
     </style>
@@ -159,7 +167,8 @@ $db_conn->close();
             <div class="measurement-details">
                 <h2><?php echo htmlspecialchars($property['p_title']); ?></h2>
                 <p><?php echo htmlspecialchars($property['p_description']); ?></p>
-
+                <br>
+                <br>
                 <table>
                     <tr>
                         <th>Price</th>
@@ -181,7 +190,7 @@ $db_conn->close();
                         <th>Type</th>
                         <td><?php echo htmlspecialchars($property['p_type']); ?></td>
                     </tr>
-                    <button class="icon"><i class="fa-solid fa-phone"></i></button>
+                    <!-- <button class="icon"><i class="fa-solid fa-phone"></i></button> -->
                 </table>
            
             </div>

@@ -1,5 +1,5 @@
-  <!-- Slick Slider CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<!-- Slick Slider CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 
 
@@ -7,7 +7,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "php_project";
+$dbname = "PropertyNexus";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -26,8 +26,33 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 ?>
-<section id="product-slider" class="sec2">
-  <h2>Best offers</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/image-slider.css">
+  <style>
+  /* #sub h2::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    transform: translateX(-50%);
+    width: 170px;
+    height: 4px;
+    background-color: #8f3fff;
+    border-radius: 2px;
+  } */
+  </style>
+  </head>
+<body>
+  
+
+<section id="product-slider">
+  <!-- <div id="sub">
+    <h2>Browse property</h2>
+  </div> -->
   <div class="slider">
     <?php foreach ($slides as $slide): ?>
       <div class="slide">
@@ -39,6 +64,8 @@ $conn->close();
       </div>
     <?php endforeach; ?>
   </div>
-  <button class="slick-prev">&#10094;</button>
-  <button class="slick-next">&#10095;</button>
+  <!-- <button class="slick-prev">&#10094;</button>
+  <button class="slick-next">&#10095;</button> -->
 </section>
+</body>
+</html>

@@ -1,65 +1,37 @@
 <?php
 include("connection.php");
 
+// Error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-?>
+if (isset($_POST['userID'])) {
+    $userID = mysqli_real_escape_string($db_conn, $_POST['userID']);
+    $userFname = mysqli_real_escape_string($db_conn, $_POST['userFname']);
+    $userLname = mysqli_real_escape_string($db_conn, $_POST['userLname']);
+    $userEmail = mysqli_real_escape_string($db_conn, $_POST['userEmail']);
+    $userAdress = mysqli_real_escape_string($db_conn, $_POST['userAdress']);
+    $userMobile = mysqli_real_escape_string($db_conn, $_POST['userMobile']);
+    $userPW = mysqli_real_escape_string($db_conn, $_POST['userPW']);
 
-<!-- ==================================================================================================================== -->
-<?php
-//To fetch data
-    if (isset($_GET['userID'])) {
-        $userID = $_GET['userID'];
-    
-        $select_Q = "SELECT * FROM users WHERE userID = $userID";
-                $select_r = mysqli_query($db_conn, $select_Q);
-                if (!$select_r) {
-                    die("Query failed". mysqli_error($db_conn));
-                }else{
-                    $rec = mysqli_fetch_assoc($select_r);
-                }
-                
-                }
-            
-//To update data
-    if (isset($_POST["updUser"])) {
-        $userFname = $_POST["uFname"];
-        $userLname = $_POST["uLname"];
-        $uPW = $_POST["u_pw"];
-        $uEmail = $_POST["u_email"];
-        $uAdress = $_POST["u_adress"];
-        $uMobile = $_POST["u_mob"];
-
-        $update_q = "UPDATE users set userFname = '$userFname', userLname = '$userLname', userAdress =' $uAdress', userPW = '$uPW',
-            userMobile = '$uMobile', userEmail = '$uEmail' WHERE userID = '$userID'";
-        $update_r = mysqli_query($db_conn, $update_q);
-        if (!$update_r) {
-            die("Update failed". mysqli_error($db_conn));
-    }else{
-        echo '<script>alert("Update successfully!")</script>'; 
-
+    if (empty($fname) || empty($lname) || empty($email) || empty($mobile)) {
+        echo "All fields except password are required.";
+        exit();
     }
+
+    $update_Q = "UPDATE users SET userFname = '$userFname', userLname = '$userLname', userAdress = '$userAdress', userEmail = '$userEmail', userMobile = '$userMobile'";
+    if (!empty($pw)) {
+        $update_Q .= ", userPW = '$userPW'";
+    }
+    $update_Q .= " WHERE userID = '$userID'";
+
+    if (mysqli_query($db_conn, $update_Q)) {
+        echo "User data has been updated successfully!";
+    } else {
+        echo "Query Failed: " . mysqli_error($db_conn);
+    }
+} else {
+    echo "Invalid request.";
 }
-
 ?>
-
-<form action="edit_user.php?userID=<?php echo $userID ?>" method="post">
-    <label for="uFname">First Name:</label>
-    <input type="text" name="uFname" value=<?php echo $rec['userFname']?>><br>
-
-    <label for="uLname">Last Name:</label>
-    <input type="text" name="uLname" value=<?php echo $rec['userLname']?>><br>
-
-    <label for="u_pw">Password:</label>
-    <input type="password" name="u_pw"value=<?php echo $rec['userPW']?>><br>
-
-    <label for="u_email">Email:</label>
-    <input type="email" name="u_email" value=<?php echo $rec['userEmail']?>><br>
-
-    <label for="u_adress">Address:</label>
-    <input type="text" name="u_adress" value=<?php echo $rec['userAdress']?>><br>
-
-    <label for="u_mob">Mobile:</label>
-    <input type="text" name="u_mob" value=<?php echo $rec['userMobile']?>><br>
-
-    <input type="submit" name="updUser" value="Save">
-</form>
